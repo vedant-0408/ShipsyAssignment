@@ -67,3 +67,24 @@ python manage.py createsuperuser
 Authorization: Token <your_token>
 ```  
 > Only an existing administrator can create new admin accounts.
+
+---
+
+## Prompt 4 – Frontend Basic Pages
+
+**Context:**  
+Wanted to make basic frontend.
+
+**Prompt:**  
+> develop frontend now, landing page should be admin login , and after login we should see paginated list of students 
+
+**Gemini CLI Output (Summary):**  
+>  I began by setting up the existing React project in the frontend directory, ensuring all dependencies like axios  
+  and react-router-dom were installed. I then created a LoginPage
+  component with a form to handle user authentication against your backend API. Upon successful login, the application navigates to a protected /students route, which renders a
+  StudentListPage component. This component fetches the paginated list of students from your API and displays them in a table, with buttons to navigate between pages. To secure the
+  student list, I implemented a ProtectedRoute component that redirects unauthenticated users back to the login page. Finally, I configured the routing in App.jsx and main.jsx to
+  manage the navigation flow of the application.
+
+
+---
