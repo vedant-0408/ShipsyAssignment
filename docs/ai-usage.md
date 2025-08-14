@@ -5,7 +5,6 @@ This document contains all AI prompts and outputs used during development of the
 ---
 
 ## Prompt 1 – Project Scaffold
-
 **Context:**  
 I wanted a quick Django REST Framework project setup, with pagination enabled and a `Student` model.
 
