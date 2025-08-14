@@ -1,0 +1,53 @@
+# ======================
+# Python / Django
+# ======================
+__pycache__/
+*.py[cod]
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+*.log
+
+# Virtual environment
+venv/
+.env/
+
+# Local settings
+*.local
+settings_local.py
+
+# ======================
+# Node / React
+# ======================
+node_modules/
+dist/
+build/
+
+# ======================
+# Environment & secrets
+# ======================
+.env
+.env.*
+!env.example
+
+# ======================
+# IDE / Editor
+# ======================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ======================
+# System / OS files
+# ======================
+.DS_Store
+Thumbs.db
+
+# ======================
+# Testing / Coverage
+# ======================
+.coverage
+htmlcov/
+pytest_cache/
