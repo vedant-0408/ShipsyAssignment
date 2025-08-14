@@ -1,0 +1,662 @@
+/* StudentListPage.css */
+
+/* Container and layout fixes */
+.container-fluid {
+    padding-bottom: 40px; /* Add bottom padding to prevent cut-off */
+    min-height: 100vh;
+    width: 115%;
+}
+
+/* Main row layout - ensure proper space allocation */
+.main-content-row {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.table-section {
+    flex: 1; /* Take up remaining space */
+    min-width: 0; /* Allow shrinking */
+}
+
+.filter-section-container {
+    width: 320px; /* Fixed width for filter section */
+    flex-shrink: 0; /* Don't shrink */
+}
+
+/* Sortable headers and sort icons */
+.sortable-header {
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    position: relative;
+    padding: 12px 8px !important;
+}
+
+.sortable-header:hover {
+    background-color: rgba(227, 205, 205, 0.1) !important;
+    transform: translateY(-1px);
+    color: black ;
+}
+
+.sort-icon {
+    margin-left: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+    display: inline-block;
+}
+
+.sort-icon:not(.active) {
+    color: #6c757d;
+    opacity: 0.6;
+}
+
+.sort-icon.active {
+    color: #ffc107;
+    text-shadow: 0 0 3px rgba(255, 193, 7, 0.5);
+    animation: sortPulse 0.3s ease;
+}
+
+@keyframes sortPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Search input styling */
+.search-input {
+    width: 250px;
+    border-radius: 25px;
+    border: 2px solid #e9ecef;
+    padding: 8px 16px;
+    transition: all 0.2s ease;
+}
+
+.search-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    transform: translateY(-1px);
+}
+
+/* Filter toggle button */
+.filter-toggle {
+    position: relative;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.filter-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filter-count-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #dc3545;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    animation: badgeBounce 0.5s ease;
+}
+
+@keyframes badgeBounce {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Filter section - fixed to right edge with proper height */
+.filter-section-right {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px solid #dee2e6;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    transition: all 0.3s ease;
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+    max-height: calc(100vh - 120px); /* Reduced max height to prevent cut-off */
+    overflow-y: auto;
+    width: 100%;
+}
+
+.filter-section-right:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Vertical filter rows for the right sidebar */
+.filter-row-vertical {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    transition: all 0.2s ease;
+}
+
+.filter-row-vertical:hover {
+    border-color: #007bff;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.1);
+}
+
+.filter-row-vertical .filter-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.filter-select-vertical,
+.filter-operator-vertical,
+.filter-value-vertical {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.filter-select-vertical:focus,
+.filter-operator-vertical:focus,
+.filter-value-vertical:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Active filters display */
+.active-filters {
+    background: rgba(0, 123, 255, 0.1);
+    border: 1px solid rgba(0, 123, 255, 0.2);
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.active-filters-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.filter-badge {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+    animation: fadeInScale 0.3s ease;
+}
+
+@keyframes fadeInScale {
+    0% { 
+        opacity: 0; 
+        transform: scale(0.8); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: scale(1); 
+    }
+}
+
+/* Filter rows */
+.filter-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding: 12px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    transition: all 0.2s ease;
+}
+
+.filter-row:hover {
+    border-color: #007bff;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.1);
+}
+
+.filter-row:last-child {
+    margin-bottom: 0;
+}
+
+.filter-label {
+    min-width: 120px;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0;
+}
+
+.filter-select {
+    width: 150px;
+}
+
+.filter-operator {
+    width: 180px;
+}
+
+.filter-value {
+    width: 100px;
+}
+
+.filter-select:focus,
+.filter-operator:focus,
+.filter-value:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Grade badges */
+.grade-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.grade-a {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+}
+
+.grade-b {
+    background: linear-gradient(135deg, #007bff, #17a2b8);
+    color: white;
+}
+
+.grade-c {
+    background: linear-gradient(135deg, #ffc107, #fd7e14);
+    color: #212529;
+}
+
+.grade-d {
+    background: linear-gradient(135deg, #fd7e14, #dc3545);
+    color: white;
+}
+
+.grade-f {
+    background: linear-gradient(135deg, #dc3545, #6f1820);
+    color: white;
+}
+
+.grade-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Table styling */
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    width: 100%;
+}
+
+.table thead th {
+    border: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 13px;
+}
+
+.table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.05);
+    transform: translateX(2px);
+}
+
+/* Score cells */
+.score-cell {
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    text-align: center;
+}
+
+.final-score {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    color: #007bff;
+}
+
+.student-name {
+    font-weight: 600;
+    color: #495057;
+}
+
+/* Action buttons */
+.actions-column {
+    width: 120px;
+    text-align: center;
+}
+
+.action-btn {
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: all 0.2s ease;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary.action-btn:hover {
+    background: linear-gradient(135deg, #0056b3, #007bff);
+}
+
+.btn-danger.action-btn:hover {
+    background: linear-gradient(135deg, #c82333, #dc3545);
+}
+
+/* Pagination */
+.pagination-container {
+    background: #f8f9fa;
+    padding: 16px 20px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    margin-bottom: 20px; /* Add margin bottom */
+}
+
+.pagination-info {
+    font-weight: 500;
+    color: #495057;
+}
+
+.filter-indicator {
+    color: #007bff;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+.pagination-btn {
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    min-width: 100px;
+}
+
+.pagination-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+    .filter-section-container {
+        width: 280px;
+    }
+}
+
+@media (max-width: 992px) {
+    /* On smaller screens, stack the layout vertically */
+    .main-content-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .table-section,
+    .filter-section-container {
+        width: 100%;
+        flex: none;
+    }
+    
+    .filter-section-right {
+        position: relative;
+        top: 0;
+        max-height: none;
+        margin-bottom: 20px;
+    }
+    
+    .filter-row-vertical {
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .filter-row-vertical .filter-label {
+        min-width: 120px;
+        margin-bottom: 0;
+    }
+    
+    .filter-select-vertical,
+    .filter-operator-vertical,
+    .filter-value-vertical {
+        margin-bottom: 0;
+        flex: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .filter-row-vertical {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-row-vertical .filter-label {
+        min-width: auto;
+        margin-bottom: 8px;
+    }
+    
+    .filter-select-vertical,
+    .filter-operator-vertical,
+    .filter-value-vertical {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    
+    .search-input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .d-flex.gap-2 {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .active-filters-list {
+        justify-content: center;
+    }
+    
+    .pagination-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+}
+
+/* Empty state styling */
+.table tbody td {
+    vertical-align: middle;
+}
+
+.text-center.text-muted.py-4 {
+    font-size: 16px;
+    font-style: italic;
+}
+
+/* Button hover effects */
+.btn {
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    border: none;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    border: none;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border: none;
+}
+
+.btn-outline-primary {
+    border: 2px solid #007bff;
+    color: #007bff;
+    background: transparent;
+}
+
+.btn-outline-primary:hover {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.btn-outline-secondary {
+    border: 2px solid #6c757d;
+    color: #6c757d;
+    background: transparent;
+}
+
+.btn-outline-secondary:hover {
+    background: #6c757d;
+    color: white;
+    border-color: #6c757d;
+}
+
+/* Loading animation for buttons */
+.btn:active {
+    transform: scale(0.98);
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+/* Focus states for accessibility */
+.btn:focus,
+.form-control:focus,
+.form-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Custom scrollbar for filter section */
+.filter-section-right::-webkit-scrollbar {
+    width: 6px;
+}
+
+.filter-section-right::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.filter-section-right::-webkit-scrollbar-thumb {
+    background: #007bff;
+    border-radius: 3px;
+}
+
+.filter-section-right::-webkit-scrollbar-thumb:hover {
+    background: #0056b3;
+}
+
+/* Animation for table rows */
+.table tbody tr {
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Pulse animation for new data */
+.table tbody tr.new-row {
+    animation: highlightNew 2s ease;
+}
+
+@keyframes highlightNew {
+    0% { background-color: rgba(40, 167, 69, 0.2); }
+    100% { background-color: transparent; }
+}
+
+/* Error state styling */
+.alert-danger {
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.1), rgba(220, 53, 69, 0.05));
+    border-left: 4px solid #dc3545;
+    font-weight: 500;
+}
+
+/* Success animations */
+.fade-in {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Print styles */
+@media print {
+    .filter-section-right,
+    .pagination-container,
+    .actions-column,
+    .btn {
+        display: none !important;
+    }
+    
+    .table {
+        box-shadow: none;
+    }
+    
+    .sortable-header {
+        cursor: default;
+    }
+    
+    .sort-icon {
+        display: none;
+    }
+}
