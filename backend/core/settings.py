@@ -65,12 +65,11 @@ MIDDLEWARE = [
 ]
 
 # CORS Settings
-if DEBUG:
-    CORS_ALLOWED_ORIGINS = [
-       'http://localhost:5173'
-    ]
+cors_origins = os.getenv("CORS_ALLOWED_ORIGINS")
+if cors_origins:
+    CORS_ALLOWED_ORIGINS = cors_origins.split(",")
 else:
-    CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', '').split(',')
+    CORS_ALLOWED_ORIGINS = []
 
 ROOT_URLCONF = 'core.urls'
 
