@@ -22,7 +22,7 @@ const LoginPage = () => {
                 username,
                 password,
             });
-            await new Promise(resolve => setTimeout(resolve, 3000));
+            await new Promise(resolve => setTimeout(resolve, 2000));
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('username', username);
             setIsLoading(false)
