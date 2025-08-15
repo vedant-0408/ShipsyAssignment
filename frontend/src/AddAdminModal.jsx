@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const AddAdminModal = ({ isOpen, onSave, onClose }) => {
     const [formData, setFormData] = useState({
@@ -90,7 +91,7 @@ const AddAdminModal = ({ isOpen, onSave, onClose }) => {
             };
 
             // Using Django's default User model endpoint
-            await axios.post('http://localhost:8000/api/admin/create/', adminData, {
+            await axios.post(`${apiUrl}/api/admin/create/`, adminData, {
                 headers: {
                     Authorization: `Token ${token}`,
                     'Content-Type': 'application/json',

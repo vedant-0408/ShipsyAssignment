@@ -3,6 +3,7 @@ import { Eye, EyeOff, User, Lock, Info, BookOpen } from 'lucide-react';
 import './LoginPage.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const LoginPage = () => {
     const [username, setUsername] = useState('');
@@ -18,7 +19,7 @@ const LoginPage = () => {
         setIsLoading(true)
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8000/api/users/login/', {
+            const response = await axios.post(`${apiUrl}/api/users/login/`, {
                 username,
                 password,
             });

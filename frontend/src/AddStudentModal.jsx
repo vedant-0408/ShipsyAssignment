@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const AddStudentModal = ({ isOpen, onSave, onClose }) => {
     const [formData, setFormData] = useState({
@@ -49,7 +50,7 @@ const AddStudentModal = ({ isOpen, onSave, onClose }) => {
 
         try {
             const token = localStorage.getItem('token');
-            await axios.post('http://localhost:8000/api/students/', formData, {
+            await axios.post(`${apiUrl}/api/students/`, formData, {
                 headers: { Authorization: `Token ${token}` },
             });
             onSave();

@@ -7,6 +7,7 @@ import AddAdminModal from './AddAdminModal';
 import './StudentListPage.css';
 import ConfirmModal from './ConfirmModal';
 import WelcomeModal from './WelcomeModal';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const StudentListPage = () => {
     const [showWelcome, setShowWelcome] = useState(false);
@@ -53,7 +54,7 @@ const StudentListPage = () => {
     const fetchUserProfile = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get('http://localhost:8000/api/user/profile/', {
+            const response = await axios.get(`${apiUrl}/api/user/profile/`, {
                 headers: {
                     Authorization: `Token ${token}`,
                 },
@@ -165,7 +166,7 @@ const StudentListPage = () => {
 
     useEffect(() => {
         const ordering = `${sortOrder === 'desc' ? '-' : ''}${sortField}`;
-        fetchStudents('http://localhost:8000/api/students/', searchTerm, ordering, filters);
+        fetchStudents(`${apiUrl}/api/students/`, searchTerm, ordering, filters);
     }, [searchTerm, sortField, sortOrder, filters]);
 
     const handleDelete = async (studentId) => {
@@ -175,13 +176,13 @@ const StudentListPage = () => {
     const handleConfirmDelete = async (studentId) => {
             try {
                 const token = localStorage.getItem('token');
-                await axios.delete(`http://localhost:8000/api/students/${studentId}/`, {
+                await axios.delete(`${apiUrl}/api/students/${studentId}/`, {
                     headers: {
                         Authorization: `Token ${token}`,
                     },
                 });
                 const ordering = `${sortOrder === 'desc' ? '-' : ''}${sortField}`;
-                fetchStudents('http://localhost:8000/api/students/', searchTerm, ordering, filters);
+                fetchStudents(`${apiUrl}/api/students/`, searchTerm, ordering, filters);
                 setSuccessMessage('Student deleted successfully');
             } catch (error) {
                 setError('Failed to delete student');
@@ -195,7 +196,7 @@ const StudentListPage = () => {
 
     const handleSave = () => {
         const ordering = `${sortOrder === 'desc' ? '-' : ''}${sortField}`;
-        fetchStudents('http://localhost:8000/api/students/', searchTerm, ordering, filters);
+        fetchStudents(`${apiUrl}/api/students/`, searchTerm, ordering, filters);
         setIsAddModalOpen(false);
         setSelectedStudent(null);
         setSuccessMessage('Student saved successfully');
@@ -250,7 +251,7 @@ const StudentListPage = () => {
     const handleLogout = async () => {
         try {
             const token = localStorage.getItem('token');
-            await axios.post('http://localhost:8000/api/users/logout/', {}, {
+            await axios.post(`${apiUrl}/api/users/logout/`, {}, {
                 headers: {
                     Authorization: `Token ${token}`,
                 },
