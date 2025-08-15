@@ -112,10 +112,11 @@ const EditStudentModal = ({ student, onSave, onClose }) => {
                                     value={formData.grade || ''}
                                     onChange={handleChange}
                                 >
-                                    <option value="A">A</option>
-                                    <option value="B">B</option>
-                                    <option value="C">C</option>
-                                    <option value="D">D</option>
+                                    <option value="AA">AA</option>
+                                    <option value="BB">BB</option>
+                                    <option value="CC">CC</option>
+                                    <option value="DD">DD</option>
+                                    <option value="FF">FF</option>
                                 </select>
                             </div>
 

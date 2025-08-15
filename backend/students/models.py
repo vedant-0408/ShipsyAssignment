@@ -7,9 +7,9 @@ class DateTimeModel(models.Model):
         abstract = True
 
 class Student(DateTimeModel):
-    GRADE_CHOICES = [('A','A'),('B','B'),('C','C'),('D','D')]
+    GRADE_CHOICES = [('AA','AA'),('BB','BB'),('CC','CC'),('DD','DD'),('FF','FF')]
     name = models.CharField(max_length=255)
-    grade = models.CharField(max_length=1, choices=GRADE_CHOICES)
+    grade = models.CharField(max_length=2, choices=GRADE_CHOICES)
     is_active = models.BooleanField(default=True)
     midterm_score = models.IntegerField()
     final_exam_score = models.IntegerField()

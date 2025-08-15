@@ -4,7 +4,7 @@ import axios from 'axios';
 const AddStudentModal = ({ isOpen, onSave, onClose }) => {
     const [formData, setFormData] = useState({
         name: '',
-        grade: 'A',
+        grade: 'AA',
         midterm_score: '',
         final_exam_score: '',
     });
@@ -89,6 +89,7 @@ const AddStudentModal = ({ isOpen, onSave, onClose }) => {
                                     name="name"
                                     value={formData.name}
                                     onChange={handleChange}
+                                    required
                                 />
                             </div>
                             <div className="mb-3">
@@ -98,11 +99,13 @@ const AddStudentModal = ({ isOpen, onSave, onClose }) => {
                                     name="grade"
                                     value={formData.grade}
                                     onChange={handleChange}
+                                    required
                                 >
-                                    <option value="A">A</option>
-                                    <option value="B">B</option>
-                                    <option value="C">C</option>
-                                    <option value="D">D</option>
+                                    <option value="AA">AA</option>
+                                    <option value="BB">BB</option>
+                                    <option value="CC">CC</option>
+                                    <option value="DD">DD</option>
+                                    <option value="FF">FF</option>
                                 </select>
                             </div>
                             <div className="mb-3">
@@ -113,6 +116,7 @@ const AddStudentModal = ({ isOpen, onSave, onClose }) => {
                                     name="midterm_score"
                                     value={formData.midterm_score}
                                     onChange={handleChange}
+                                    required
                                 />
                                 {errors.midterm_score && <div className="text-danger">{errors.midterm_score}</div>}
                             </div>
@@ -124,6 +128,7 @@ const AddStudentModal = ({ isOpen, onSave, onClose }) => {
                                     name="final_exam_score"
                                     value={formData.final_exam_score}
                                     onChange={handleChange}
+                                    required
                                 />
                                 {errors.final_exam_score && <div className="text-danger">{errors.final_exam_score}</div>}
                             </div>

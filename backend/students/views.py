@@ -9,7 +9,7 @@ from .serializers import StudentSerializer
 class StudentFilter(filters.FilterSet):
     # Grade filter
     grade = filters.ChoiceFilter(
-        choices=[('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D'), ('F', 'F')]
+        choices=[('AA', 'AA'), ('BB', 'BB'), ('CC', 'CC'), ('DD', 'DD'), ('FF', 'FF')]
     )
     
     # Midterm score filters
@@ -41,4 +41,4 @@ class StudentViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = StudentFilter
     search_fields = ['name']
-    ordering_fields = ['name', 'grade', 'midterm_score', 'final_exam_score']  # Removed final_score
+    ordering_fields = ['id','name', 'grade', 'midterm_score', 'final_exam_score']  # Removed final_score

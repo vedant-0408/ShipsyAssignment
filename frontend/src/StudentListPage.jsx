@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import EditStudentModal from './EditStudentModal';
 import AddStudentModal from './AddStudentModal';
 import './StudentListPage.css';
+import ConfirmModal from './ConfirmModal';
 
 const StudentListPage = () => {
     const [students, setStudents] = useState([]);
@@ -15,14 +16,15 @@ const StudentListPage = () => {
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
-    const [sortField, setSortField] = useState('name');
+    const [sortField, setSortField] = useState('id');
     const [sortOrder, setSortOrder] = useState('asc');
     const [filters, setFilters] = useState({});
     const [showFilters, setShowFilters] = useState(true);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState({isOpen:false, studentId:null});
     const navigate = useNavigate(); 
 
     // Filter options
-    const gradeOptions = ['A', 'B', 'C', 'D', 'F'];
+    const gradeOptions = ['AA', 'BB', 'CC', 'DD', 'FF'];
     const scoreOperators = ['eq', 'lt', 'lte', 'gt', 'gte'];
     const operatorLabels = {
         'eq': 'equals',
@@ -57,6 +59,12 @@ const StudentListPage = () => {
             setError('Failed to fetch students');
         }
     };
+
+    const displayID = (id) => {
+        const paddedId = String(id).padStart(3, '0'); // ensures length 3 with leading zeros
+        return `SHSY${paddedId}`;
+        };
+
 
     const buildFilterParams = (appliedFilters) => {
         const params = {};
@@ -119,7 +127,10 @@ const StudentListPage = () => {
     }, [searchTerm, sortField, sortOrder, filters]);
 
     const handleDelete = async (studentId) => {
-        if (window.confirm('Are you sure you want to delete this student?')) {
+        setIsDeleteModalOpen({ isOpen: true, studentId : studentId});
+    }
+
+    const handleConfirmDelete = async (studentId) => {
             try {
                 const token = localStorage.getItem('token');
                 await axios.delete(`http://localhost:8000/api/students/${studentId}/`, {
@@ -132,7 +143,7 @@ const StudentListPage = () => {
             } catch (error) {
                 setError('Failed to delete student');
             }
-        }
+            setIsDeleteModalOpen({ isOpen: false, studentId: null });
     };
 
     const handleEdit = (student) => {
@@ -253,6 +264,9 @@ const StudentListPage = () => {
                     <table className="table table-striped table-bordered">
                         <thead className="table-dark">
                             <tr>
+                                 <th className="sortable-header" onClick={() => handleSort('id')}>
+                                    ID{ renderSortIcon('id') }
+                                </th>
                                 <th className="sortable-header" onClick={() => handleSort('name')}>
                                     Name{renderSortIcon('name')}
                                 </th>
@@ -265,10 +279,10 @@ const StudentListPage = () => {
                                 <th className="sortable-header" onClick={() => handleSort('final_exam_score')}>
                                     Final Exam Score{renderSortIcon('final_exam_score')}
                                 </th>
-                                <th>
+                                <th className="sortable-header">
                                     Final Score (Calculated)
                                 </th>
-                                <th className="actions-column">Actions</th>
+                                <th className="actions-column sortable-header">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -284,6 +298,7 @@ const StudentListPage = () => {
                             ) : (
                                 students.map((student) => (
                                     <tr key={student.id}>
+                                        <td className='student-name'>{displayID(student.id)}</td>
                                         <td className="student-name">{student.name}</td>
                                         <td>
                                             <span className={`grade-badge grade-${student.grade.toLowerCase()}`}>
@@ -459,6 +474,14 @@ const StudentListPage = () => {
                     onSave={handleSave}
                     onClose={handleCloseModal}
                 />
+            )}
+
+            {isDeleteModalOpen.isOpen && (
+                <ConfirmModal
+                title="Confirm Delete"
+                message="Are you sure you want to delete this student? This action cannot be undone."
+                onConfirm={() => handleConfirmDelete(isDeleteModalOpen.studentId)}
+                onCancel={() => setIsDeleteModalOpen({isOpen:false, studentId:null})} />
             )}
         </div>
     );
