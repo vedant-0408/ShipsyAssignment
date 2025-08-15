@@ -66,3 +66,102 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
+/* Full height fix */
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    /* width: 100%; */
+}
+
+/* Background blobs animation */
+@keyframes slow-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.15; }
+  50% { transform: scale(1.05); opacity: 0.25; }
+}
+
+.blob {
+  border-radius: 50%;
+  mix-blend-mode: multiply;
+  filter: blur(50px);
+  animation: slow-pulse 6s infinite;
+}
+
+/* Card styling */
+.card {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(115, 120, 124, 0.2);
+    border-radius: 1rem;
+    padding: 2rem;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
+/* Heading */
+.heading-gradient {
+    background: linear-gradient(135deg, #73787C, #000000);
+    color: #D7E5F0;
+    padding: 0.75rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Input fields */
+input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(115, 120, 124, 0.3);
+    border-radius: 0.5rem;
+    outline: none;
+    transition: all 0.2s ease;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+input:focus {
+    border-color: #73787C;
+    box-shadow: 0 0 0 3px rgba(115, 120, 124, 0.15);
+}
+
+/* Buttons */
+.btn {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #000000, #73787C);
+    color: #D7E5F0;
+    border: none;
+}
+
+.btn-primary:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+/* Error box */
+.error-box {
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    color: #DC2626;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .card {
+        padding: 1.25rem;
+    }
+    .footer-box {
+        font-size: 0.85rem;
+    }
+}

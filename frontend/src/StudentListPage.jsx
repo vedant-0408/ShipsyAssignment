@@ -3,18 +3,25 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; 
 import EditStudentModal from './EditStudentModal';
 import AddStudentModal from './AddStudentModal';
+import AddAdminModal from './AddAdminModal';
 import './StudentListPage.css';
 import ConfirmModal from './ConfirmModal';
+import WelcomeModal from './WelcomeModal';
 
 const StudentListPage = () => {
+    const [showWelcome, setShowWelcome] = useState(false);
+    const [username, setUsername] = useState("");
+    const [userRole, setUserRole] = useState("");
     const [students, setStudents] = useState([]);
     const [nextPage, setNextPage] = useState(null);
     const [prevPage, setPrevPage] = useState(null);
     const [count, setCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [isAddAdminModalOpen, setIsAddAdminModalOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [sortField, setSortField] = useState('id');
     const [sortOrder, setSortOrder] = useState('asc');
@@ -33,6 +40,42 @@ const StudentListPage = () => {
         'gt': 'greater than',
         'gte': 'greater than or equal'
     };
+
+    useEffect(() => {
+        const name = localStorage.getItem("username") || "User";
+        setUsername(name);
+        setShowWelcome(true);
+        
+        // Fetch user profile to get role information
+        fetchUserProfile();
+    }, []);
+
+    const fetchUserProfile = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.get('http://localhost:8000/api/user/profile/', {
+                headers: {
+                    Authorization: `Token ${token}`,
+                },
+            });
+            setUserRole(response.data.role);
+            // Store role in localStorage for future use
+            localStorage.setItem('userRole', response.data.role);
+        } catch (error) {
+            console.error('Failed to fetch user profile:', error);
+            setUserRole('user'); // Default to regular user
+        }
+    };
+
+    // Auto-hide success message after 5 seconds
+    useEffect(() => {
+        if (successMessage) {
+            const timer = setTimeout(() => {
+                setSuccessMessage('');
+            }, 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [successMessage]);
 
     const fetchStudents = async (url, search = '', ordering = 'name', appliedFilters = {}) => {
         try {
@@ -63,8 +106,7 @@ const StudentListPage = () => {
     const displayID = (id) => {
         const paddedId = String(id).padStart(3, '0'); // ensures length 3 with leading zeros
         return `SHSY${paddedId}`;
-        };
-
+    };
 
     const buildFilterParams = (appliedFilters) => {
         const params = {};
@@ -140,6 +182,7 @@ const StudentListPage = () => {
                 });
                 const ordering = `${sortOrder === 'desc' ? '-' : ''}${sortField}`;
                 fetchStudents('http://localhost:8000/api/students/', searchTerm, ordering, filters);
+                setSuccessMessage('Student deleted successfully');
             } catch (error) {
                 setError('Failed to delete student');
             }
@@ -155,6 +198,12 @@ const StudentListPage = () => {
         fetchStudents('http://localhost:8000/api/students/', searchTerm, ordering, filters);
         setIsAddModalOpen(false);
         setSelectedStudent(null);
+        setSuccessMessage('Student saved successfully');
+    };
+
+    const handleAdminSave = () => {
+        setIsAddAdminModalOpen(false);
+        setSuccessMessage('Admin user created successfully');
     };
 
     const handleCloseModal = () => {
@@ -164,6 +213,14 @@ const StudentListPage = () => {
 
     const handleOpenAddModal = () => {
         setIsAddModalOpen(true);
+    };
+
+    const handleOpenAddAdminModal = () => {
+        setIsAddAdminModalOpen(true);
+    };
+
+    const handleCloseAddAdminModal = () => {
+        setIsAddAdminModalOpen(false);
     };
 
     const handleSearchChange = (e) => {
@@ -199,10 +256,14 @@ const StudentListPage = () => {
                 },
             });
             localStorage.removeItem('token');
+            localStorage.removeItem('username');
+            localStorage.removeItem('userRole');
             navigate('/'); 
         } catch (error) {
             console.error('Logout failed', error);
             localStorage.removeItem('token'); 
+            localStorage.removeItem('username');
+            localStorage.removeItem('userRole');
             navigate('/'); 
         }
     };
@@ -234,7 +295,19 @@ const StudentListPage = () => {
         );
     };
 
+    const isAdmin = () => {
+        return userRole === 'admin' || userRole === 'superuser';
+    };
+
     return (
+        <>
+         {showWelcome && (
+                <WelcomeModal
+                    name={username}
+                    onClose={() => setShowWelcome(false)}
+                />
+        )}
+        
         <div className="container-fluid mt-5">
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h2>Student Data - Shipsy</h2>
@@ -249,11 +322,28 @@ const StudentListPage = () => {
                     <button className="btn btn-success" onClick={handleOpenAddModal}>
                         ➕ Add Student
                     </button>
+                    {isAdmin() && (
+                        <button className="btn btn-info" onClick={handleOpenAddAdminModal}>
+                            👤 Add Admin
+                        </button>
+                    )}
                     <button className="btn btn-danger" onClick={handleLogout}>
                         Logout
                     </button>
                 </div>
             </div>
+
+            {/* Success Message */}
+            {successMessage && (
+                <div className="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Success!</strong> {successMessage}
+                    <button 
+                        type="button" 
+                        className="btn-close" 
+                        onClick={() => setSuccessMessage('')}
+                    ></button>
+                </div>
+            )}
 
             <div className="main-content-row">
             {/* Main table section */}
@@ -468,6 +558,14 @@ const StudentListPage = () => {
                 />
             )}
 
+            {isAddAdminModalOpen && (
+                <AddAdminModal
+                    isOpen={isAddAdminModalOpen}
+                    onSave={handleAdminSave}
+                    onClose={handleCloseAddAdminModal}
+                />
+            )}
+
             {selectedStudent && (
                 <EditStudentModal
                     student={selectedStudent}
@@ -484,7 +582,9 @@ const StudentListPage = () => {
                 onCancel={() => setIsDeleteModalOpen({isOpen:false, studentId:null})} />
             )}
         </div>
+        </>
     );
+
 };
 
 export default StudentListPage;

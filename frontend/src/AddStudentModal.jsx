@@ -4,7 +4,7 @@ import axios from 'axios';
 const AddStudentModal = ({ isOpen, onSave, onClose }) => {
     const [formData, setFormData] = useState({
         name: '',
-        grade: 'AA',
+        grade: '',
         midterm_score: '',
         final_exam_score: '',
     });
@@ -90,6 +90,7 @@ const AddStudentModal = ({ isOpen, onSave, onClose }) => {
                                     value={formData.name}
                                     onChange={handleChange}
                                     required
+                                    placeholder='Enter student name'
                                 />
                             </div>
                             <div className="mb-3">
@@ -100,7 +101,11 @@ const AddStudentModal = ({ isOpen, onSave, onClose }) => {
                                     value={formData.grade}
                                     onChange={handleChange}
                                     required
+                                    placeholder='Select grade'
                                 >
+                                    <option value="" disabled hidden>
+                                        Select grade
+                                    </option>
                                     <option value="AA">AA</option>
                                     <option value="BB">BB</option>
                                     <option value="CC">CC</option>
@@ -117,6 +122,7 @@ const AddStudentModal = ({ isOpen, onSave, onClose }) => {
                                     value={formData.midterm_score}
                                     onChange={handleChange}
                                     required
+                                    placeholder='Enter midterm score'
                                 />
                                 {errors.midterm_score && <div className="text-danger">{errors.midterm_score}</div>}
                             </div>
@@ -129,6 +135,7 @@ const AddStudentModal = ({ isOpen, onSave, onClose }) => {
                                     value={formData.final_exam_score}
                                     onChange={handleChange}
                                     required
+                                    placeholder='Enter final exam score'
                                 />
                                 {errors.final_exam_score && <div className="text-danger">{errors.final_exam_score}</div>}
                             </div>
