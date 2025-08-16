@@ -83,6 +83,7 @@ const LoginPage = () => {
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                                 placeholder="Enter your username"
+                                required
                             />
 
                             <label>
@@ -94,6 +95,7 @@ const LoginPage = () => {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="Enter your password"
+                                    required
                                 />
                                 <button
                                     type="button"
