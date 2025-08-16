@@ -9,7 +9,12 @@ This project was built as part of the **AI Campus Assignment**. It demonstrates:
 
 ---
 
-## 🌐 Live Demo  
+## 🌐 Repo Link
+👉 [Repo Link](https://github.com/vedant-0408/ShipsyAssignment/)  
+
+---
+
+## 🌐 Live Demo 
 👉 [https://shipsy-assignment-lilac.vercel.app/](https://shipsy-assignment-lilac.vercel.app/)  
 
 ---
