@@ -4,6 +4,9 @@ This document contains all AI prompts and outputs used during development of the
 
 ---
 
+### ⚙️ Gemini CLI
+![Gemini CLI](screenshots/gemini.png)
+
 ## Prompt 1 – Project Scaffold
 
 **Context:**  
