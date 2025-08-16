@@ -1,106 +1,95 @@
 # 🚀 ShipsyAssignment – AI Campus Project  
 
-This project is built as part of the **AI Campus Assignment**. It includes a **Django REST Framework backend** and a **React (Vite) frontend** with token-based authentication, CRUD APIs, pagination, filtering, and AI-assisted development using **Gemini CLI**.  
+This project was built as part of the **AI Campus Assignment**. It demonstrates:  
+- Authentication (Login/Logout, Admin registration)  
+- CRUD operations on `Student` entity  
+- Pagination and filtering  
+- Frontend integration with React (Vite)  
+- AI-assisted development using **Gemini CLI**  
 
 ---
 
-## 📂 Project Structure
-```
-ShipsyAssignment/
-│
-├── backend/         # Django REST Framework backend
-│   ├── core/        # Main project settings
-│   ├── students/    # Student app (CRUD, pagination, filtering)
-│   ├── users/       # Users app (auth & admin registration)
-│   └── manage.py
-│
-├── frontend/        # React (Vite) frontend
-│   ├── src/         # React components
-│   └── package.json
-│
-├── docs/            # Documentation
-│   ├── ai-usage.md  # Gemini CLI prompts & outputs
-│   ├── commits.md   # Hourly commit history
-│   └── env.example  # Example environment variables
-│
-└── README.md
-```
+## 🌐 Live Demo  
+👉 [https://shipsy-assignment-lilac.vercel.app/](https://shipsy-assignment-lilac.vercel.app/)  
 
 ---
 
-## ⚙️ Backend Setup (Django REST Framework)
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com/vedant-0408/ShipsyAssignment.git
-cd ShipsyAssignment/backend
-```
-
-### 2. Create Virtual Environment & Install Dependencies
-```bash
-python -m venv venv
-source venv/bin/activate   # macOS/Linux
-venv\Scripts\activate      # Windows
-
-pip install -r requirements.txt
-```
-
-### 3. Environment Variables
-Create a `.env` file inside `backend/` (see `docs/env.example` for reference):
-```
-DJANGO_SECRET_KEY=your-secret-key
-DEBUG=True
-DATABASE_URL=sqlite:///db.sqlite3
-CORS_ALLOWED_ORIGINS=http://localhost:5173
-```
-
-### 4. Apply Migrations & Create Superuser
-```bash
-python manage.py migrate
-python manage.py createsuperuser
-```
-
-### 5. Run Backend
-```bash
-python manage.py runserver
-```
-Backend will be available at 👉 `http://127.0.0.1:8000/`
+## 🎥 Demo Video  
+👉 [Watch on YouTube](https://youtu.be/your-video-id)  
 
 ---
 
-## 💻 Frontend Setup (React + Vite)
+## ✨ Features  
 
-### 1. Move to Frontend
-```bash
-cd ../frontend
-```
+### 🔐 Authentication & Users
+- Login with username & password (Token authentication)  
+- Logout endpoint  
+- Admin-only user registration (only admins can create new admins)  
 
-### 2. Install Dependencies
-```bash
-npm install
-```
+### 📊 Student Management (CRUD)
+- Create, Read, Update, Delete Students  
+- Fields:  
+  - `name` (text)  
+  - `grade` (enum: AA/BB/CC/DD/FF)  
+  - `is_active` (boolean)  
+  - `midterm_score`, `final_exam_score` (integers)  
+  - `final_score` (calculated field)  
 
-### 3. Environment Variables
-Create a `.env` file inside `frontend/`:
-```
-VITE_API_URL=http://127.0.0.1:8000
-```
+### 📑 Listing & Data Management
+- Pagination (10 per page)  
+- Filtering by grade and active status  
+- Search & sorting  
 
-### 4. Run Frontend
-```bash
-npm run dev
-```
-Frontend will be available at 👉 `http://localhost:5173/`
-
----
-
-## 🤖 AI Usage
-This project was developed with **Gemini CLI assistance**. Prompts and outputs are documented in:
-```
-docs/ai-usage.md
-```
+### 🎨 Frontend
+- Built with **React (Vite)**  
+- Axios integration with token-based authentication  
+- Table for paginated students with grade filter  
+- Forms for add/update student  
 
 ---
 
-## 👤 Author
-- **Vedant Sarawagi**
+## 🛠 Tech Stack  
+
+### Backend
+- **Django** + Django REST Framework  
+- **SQLite (local)** / **PostgreSQL (production)**  
+- **django-filter** for filtering  
+- **TokenAuthentication** for login/logout  
+- Deployed on **Render**  
+
+### Frontend
+- **React (Vite)**  
+- **Axios** for API calls  
+- **React Router DOM** for routing  
+- Deployed on **Vercel**  
+
+### Dev Tools
+- **Gemini CLI** (AI-assisted coding)  
+- **Postman** (API testing)  
+- **GitHub** (repo & version control)  
+
+---
+
+## 📸 Screenshots  
+
+### 🔐 Authentication
+![Login Page](docs/screenshots/login.png)  
+
+### 📊 DashBoard
+![Dashboard](docs/screenshots/dashboard.png)  
+
+### ➕ Add Student
+![Add Student](docs/screenshots/add-student.png)  
+
+### ⚙️ Edit Student
+![Edit Student](docs/screenshots/edit-student.png)  
+
+### ⚙️ Add Admin
+![Add Admin](docs/screenshots/add-admin.png)  
+
+### ⚙️ Filter Function
+![Filter Function](docs/screenshots/filter.png)  
+
+### ⚙️ Sort Function
+![Sort Function](docs/screenshots/sort.png)
+
