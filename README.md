@@ -90,6 +90,6 @@ This project was built as part of the **AI Campus Assignment**. It demonstrates:
 ### ⚙️ Filter Function
 ![Filter Function](docs/screenshots/filter.png)  
 
-### ⚙️ Sort Function
+### ⚙️ Sort Function on Final Score
 ![Sort Function](docs/screenshots/sort.png)
 
