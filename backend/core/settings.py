@@ -8,7 +8,7 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY','django-insecure-ld0chu@9pex(5-5gv-^&b(razc56+9)5huejo7!2c4c)9ny&tu')
 DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
 
 if DEBUG:
@@ -69,7 +69,7 @@ cors_origins = os.getenv("CORS_ALLOWED_ORIGINS")
 if cors_origins:
     CORS_ALLOWED_ORIGINS = cors_origins.split(",")
 else:
-    CORS_ALLOWED_ORIGINS = []
+    CORS_ALLOWED_ORIGINS = ['http://localhost:5173']
 
 ROOT_URLCONF = 'core.urls'
 
