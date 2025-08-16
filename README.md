@@ -1,4 +1,4 @@
-# 🚀 ShipsyAssignment – AI Campus Project  
+# 🚀 ShipsyAssignment
 
 This project was built as part of the **AI Campus Assignment**. It demonstrates:  
 - Authentication (Login/Logout, Admin registration)  
@@ -15,7 +15,7 @@ This project was built as part of the **AI Campus Assignment**. It demonstrates:
 ---
 
 ## 🎥 Demo Video  
-👉 [Watch on YouTube](https://youtu.be/your-video-id)  
+👉 [Watch on YouTube](https://www.youtube.com/watch?v=cE0ZmhFyUQ8)  
 
 ---
 
