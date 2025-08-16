@@ -19,7 +19,7 @@ const StudentListPage = () => {
     const [count, setCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [error, setError] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
+    // const [successMessage, setSuccessMessage] = useState('');
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isAddAdminModalOpen, setIsAddAdminModalOpen] = useState(false);
@@ -69,14 +69,14 @@ const StudentListPage = () => {
     };
 
     // Auto-hide success message after 5 seconds
-    useEffect(() => {
-        if (successMessage) {
-            const timer = setTimeout(() => {
-                setSuccessMessage('');
-            }, 5000);
-            return () => clearTimeout(timer);
-        }
-    }, [successMessage]);
+    // useEffect(() => {
+    //     if (successMessage) {
+    //         const timer = setTimeout(() => {
+    //             setSuccessMessage('');
+    //         }, 5000);
+    //         return () => clearTimeout(timer);
+    //     }
+    // }, [successMessage]);
 
     const fetchStudents = async (url, search = '', ordering = 'name', appliedFilters = {}) => {
         try {
@@ -183,7 +183,7 @@ const StudentListPage = () => {
                 });
                 const ordering = `${sortOrder === 'desc' ? '-' : ''}${sortField}`;
                 fetchStudents(`${apiUrl}/api/students/`, searchTerm, ordering, filters);
-                setSuccessMessage('Student deleted successfully');
+                // setSuccessMessage('Student deleted successfully');
             } catch (error) {
                 setError('Failed to delete student');
             }
@@ -199,12 +199,12 @@ const StudentListPage = () => {
         fetchStudents(`${apiUrl}/api/students/`, searchTerm, ordering, filters);
         setIsAddModalOpen(false);
         setSelectedStudent(null);
-        setSuccessMessage('Student saved successfully');
+        // setSuccessMessage('Student saved successfully');
     };
 
     const handleAdminSave = () => {
         setIsAddAdminModalOpen(false);
-        setSuccessMessage('Admin user created successfully');
+        // setSuccessMessage('Admin user created successfully');
     };
 
     const handleCloseModal = () => {
@@ -335,16 +335,7 @@ const StudentListPage = () => {
             </div>
 
             {/* Success Message */}
-            {successMessage && (
-                <div className="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Success!</strong> {successMessage}
-                    <button 
-                        type="button" 
-                        className="btn-close" 
-                        onClick={() => setSuccessMessage('')}
-                    ></button>
-                </div>
-            )}
+            
 
             <div className="main-content-row">
             {/* Main table section */}
